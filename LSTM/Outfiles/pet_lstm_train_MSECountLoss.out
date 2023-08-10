@@ -1,0 +1,147 @@
+cuda
+36000
+4000
+Data loaded!
+Net Created!
+Net sent to device!
+Using: MSE_Count_Loss
+epoch: 0
+	 train loss: 0.09803954088687897
+	 test loss: 0.0826540858745575
+	 test accuracy; Trues: 0.0 	 False: 13.004268999999995 	 Acc: 0.0
+epoch: 1
+	 train loss: 0.08246791280640496
+	 test loss: 0.08096344232559204
+	 test accuracy; Trues: 0.0 	 False: 10.974555000000006 	 Acc: 0.0
+epoch: 2
+	 train loss: 0.08148434625731574
+	 test loss: 0.08085798645019532
+	 test accuracy; Trues: 0.0 	 False: 9.966624000000014 	 Acc: 0.0
+epoch: 3
+	 train loss: 0.08071660350428687
+	 test loss: 0.08007746398448944
+	 test accuracy; Trues: 0.0 	 False: 8.96752575 	 Acc: 0.0
+epoch: 4
+	 train loss: 0.08006492700841691
+	 test loss: 0.07858480095863342
+	 test accuracy; Trues: 0.0 	 False: 7.971031999999997 	 Acc: 0.0
+epoch: 5
+	 train loss: 0.07913505295912425
+	 test loss: 0.07856020963191986
+	 test accuracy; Trues: 0.0 	 False: 5.987712 	 Acc: 0.0
+epoch: 6
+	 train loss: 0.07877662891811794
+	 test loss: 0.07781294178962707
+	 test accuracy; Trues: 0.0 	 False: 5.978783999999991 	 Acc: 0.0
+epoch: 7
+	 train loss: 0.07712157417668236
+	 test loss: 0.07634115386009216
+	 test accuracy; Trues: 0.0 	 False: 5.974816000000005 	 Acc: 0.0
+epoch: 8
+	 train loss: 0.07688374785582225
+	 test loss: 0.07633229422569275
+	 test accuracy; Trues: 0.0 	 False: 4.983808 	 Acc: 0.0
+epoch: 9
+	 train loss: 0.07650204830699497
+	 test loss: 0.07559445011615754
+	 test accuracy; Trues: 0.0 	 False: 4.976863999999998 	 Acc: 0.0
+epoch: 10
+	 train loss: 0.07613314037852817
+	 test loss: 0.0755881905555725
+	 test accuracy; Trues: 0.0 	 False: 4.973888000000005 	 Acc: 0.0
+epoch: 11
+	 train loss: 0.07564661402172512
+	 test loss: 0.07412170159816742
+	 test accuracy; Trues: 0.0 	 False: 2.990879999999996 	 Acc: 0.0
+epoch: 12
+	 train loss: 0.07433058794339498
+	 test loss: 0.07338464152812958
+	 test accuracy; Trues: 0.0 	 False: 1.9968960000000018 	 Acc: 0.0
+epoch: 13
+	 train loss: 0.07390686362319522
+	 test loss: 0.0733769109249115
+	 test accuracy; Trues: 0.0 	 False: 1.990944000000002 	 Acc: 0.0
+epoch: 14
+	 train loss: 0.07389858508110046
+	 test loss: 0.07336812281608582
+	 test accuracy; Trues: 0.0 	 False: 1.987968000000002 	 Acc: 0.0
+epoch: 15
+	 train loss: 0.07388902938365936
+	 test loss: 0.07335791432857514
+	 test accuracy; Trues: 0.0 	 False: 1.9849920000000019 	 Acc: 0.0
+epoch: 16
+	 train loss: 0.0738779680331548
+	 test loss: 0.07334616160392761
+	 test accuracy; Trues: 0.0 	 False: 1.984 	 Acc: 0.0
+epoch: 17
+	 train loss: 0.07386546642250486
+	 test loss: 0.07333319187164307
+	 test accuracy; Trues: 0.0 	 False: 1.984 	 Acc: 0.0
+epoch: 18
+	 train loss: 0.07385210867722829
+	 test loss: 0.07331974744796753
+	 test accuracy; Trues: 0.0 	 False: 1.984 	 Acc: 0.0
+epoch: 19
+	 train loss: 0.0738386229938931
+	 test loss: 0.07330649781227112
+	 test accuracy; Trues: 0.0 	 False: 1.984 	 Acc: 0.0
+epoch: 20
+	 train loss: 0.07382559127277798
+	 test loss: 0.073293918967247
+	 test accuracy; Trues: 0.0 	 False: 1.984 	 Acc: 0.0
+epoch: 21
+	 train loss: 0.0738133378426234
+	 test loss: 0.07328239488601684
+	 test accuracy; Trues: 0.0 	 False: 1.9830079999999983 	 Acc: 0.0
+epoch: 22
+	 train loss: 0.07380281258953943
+	 test loss: 0.07327293419837952
+	 test accuracy; Trues: 0.0 	 False: 1.9830079999999983 	 Acc: 0.0
+epoch: 23
+	 train loss: 0.07379424986574384
+	 test loss: 0.07326552939414978
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 24
+	 train loss: 0.07378784500228035
+	 test loss: 0.07326009047031402
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 25
+	 train loss: 0.07378309591611226
+	 test loss: 0.07325602102279663
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 26
+	 train loss: 0.07377952999538845
+	 test loss: 0.07325296866893768
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 27
+	 train loss: 0.07377683525615268
+	 test loss: 0.07325063967704773
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 28
+	 train loss: 0.07377477984958225
+	 test loss: 0.07324886643886566
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+epoch: 29
+	 train loss: 0.07377320522732204
+	 test loss: 0.07324749231338501
+	 test accuracy; Trues: 0.0 	 False: 1.9820160000000018 	 Acc: 0.0
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 1383948
+Cluster: haic
+User/Group: kj3268/scc
+State: COMPLETED (exit code 0)
+Partition: normal
+Nodes: 1
+Cores per node: 16
+Nodelist: haicn1708
+CPU Utilized: 01:31:06
+CPU Efficiency: 6.02% of 1-01:14:08 core-walltime
+Job Wall-clock time: 01:34:38
+Starttime: Thu Aug 10 13:52:49 2023
+Endtime: Thu Aug 10 15:27:27 2023
+Memory Utilized: 2.89 GB
+Memory Efficiency: 4.62% of 62.50 GB
+Energy Consumed: 3353257 Joule / 931.460277777778 Watthours
+Average node power draw: 590.57009510391 Watt

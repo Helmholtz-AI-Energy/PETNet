@@ -1,0 +1,32 @@
+cuda
+18
+2
+Data loaded!
+Traceback (most recent call last):
+  File "/hkfs/home/haicore/scc/kj3268/train_lstm.py", line 192, in <module>
+    train(arguments)
+  File "/hkfs/home/haicore/scc/kj3268/train_lstm.py", line 90, in train
+    net = Net(num_inputs=hyperparameters.nodes,
+  File "/hkfs/home/haicore/scc/kj3268/model_lstm.py", line 10, in __init__
+    self.num_layers = num_layers #number of layers
+NameError: name 'num_layers' is not defined
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 1383408
+Cluster: haic
+User/Group: kj3268/scc
+State: FAILED (exit code 1)
+Partition: normal
+Nodes: 1
+Cores per node: 16
+Nodelist: haicn1707
+CPU Utilized: 00:00:02
+CPU Efficiency: 0.89% of 00:03:44 core-walltime
+Job Wall-clock time: 00:00:14
+Starttime: Thu Aug  3 11:52:45 2023
+Endtime: Thu Aug  3 11:52:59 2023
+Memory Utilized: 4.07 MB
+Memory Efficiency: 0.01% of 62.50 GB
+Energy Consumed: 2739 Joule / 0.760833333333333 Watthours
+Average node power draw: 195.642857142857 Watt

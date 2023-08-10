@@ -1,0 +1,24 @@
+cuda
+36000
+4000
+	 test accuracy; Trues: 0.9186492361354506 	 False: 0.002359375 	 Acc: 0.16042240167950042
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 1383986
+Cluster: haic
+User/Group: kj3268/scc
+State: COMPLETED (exit code 0)
+Partition: normal
+Nodes: 1
+Cores per node: 16
+Nodelist: haicn1703
+CPU Utilized: 00:00:18
+CPU Efficiency: 3.31% of 00:09:04 core-walltime
+Job Wall-clock time: 00:00:34
+Starttime: Thu Aug 10 16:13:23 2023
+Endtime: Thu Aug 10 16:13:57 2023
+Memory Utilized: 1.35 GB
+Memory Efficiency: 2.63% of 51.56 GB
+Energy Consumed: 9695 Joule / 2.69305555555556 Watthours
+Average node power draw: 285.147058823529 Watt
