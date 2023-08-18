@@ -3,8 +3,10 @@ import pandas as pd
 import sys
 import os
 import scipy
+import scipy.sparse
+import argparse
 
-import simulationParameters
+import parameters
 
 ############################################## crystalNumber ################################################
 ###   #| 00 01 02 03 04 05 06 | 07 08 09 10 11 12 13 14 |#| 15 16 17 18 19 20 21 | 22 23 24 25 26 27 28 29 |#
@@ -102,8 +104,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--savedir', default='/hkfs/work/workspace_haic/scratch/kj3268-PetNet/data', help='directory to save data', type=str)
-    parser.add_argument('--nsamples', default=100000, help='total number of samples to generate', type=int)
-    parser.add_argument('--measurementTime', default=1000, help='simulation timesteps', type=int)
+    parser.add_argument('--nsamples', default=1024000, help='total number of samples to generate', type=int)
+    parser.add_argument('--measurementTime', default=1000000, help='simulation timesteps', type=int)
     arguments = parser.parse_args()
 
     os.chdir(arguments.savedir)
@@ -116,8 +118,8 @@ if __name__ == '__main__':
         events = np.zeros(0, dtype=[('crystal', np.int32), ('time', np.int32)])
         events_geometry = np.zeros(0, dtype=[('crystal', np.int32), ('time', np.int32)])
         coincidences = np.zeros(0, dtype=[('crystal1', np.int32), ('crystal2', np.int32), ('time', np.int32)])
-
-        decay_times = np.sort(np.random.randint(np.amax(delays), arguments.measurementTime, size=parameters.activity))
+        num_events = max(1, np.random.poisson(parameters.activity))
+        decay_times = np.sort(np.random.randint(np.amax(delays), arguments.measurementTime, size=num_events))
 
         for current_time in decay_times:
             current_decay = decay(current_time) # This converts decay_time from seconds to Picoseconds

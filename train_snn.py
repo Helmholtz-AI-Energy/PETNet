@@ -222,7 +222,7 @@ def calc_f1(spk_out, targets):
                 pred_hit = Hits[0]
                 if len(Hits) != 1:
                     for hit in Hits:
-                        if (hit[0] - taget_hit[0]) < (pred_hit[0] - target_hit[0]):
+                        if (hit[0] - target_hit[0]) < (pred_hit[0] - target_hit[0]):
                             pred_hit = hit
                 prediction_hits = [pred for pred in prediction_hits if not torch.equal(pred,pred_hit)]
 
@@ -377,7 +377,7 @@ def train(hyperparameters: argparse.Namespace):
             f1_score = 0
         else:
             precision = true_positives/(true_positives + false_positives)
-            recall = true_positives/(true_positives + false_positives)
+            recall = true_positives/(true_positives + false_negatives)
             f1_score = 2.0 * (precision * recall) / (precision + recall)
 
         print(f"\t train loss: {loss_result/n_train_samples}")

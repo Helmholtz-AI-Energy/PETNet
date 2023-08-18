@@ -4,6 +4,7 @@ import pandas as pd
 import torch
 import numpy as np
 import torch.utils.data as TUData
+import sys
 import glob
 import scipy
 
@@ -20,8 +21,8 @@ class SimDataSet():
         self.feature_files = sorted(glob.glob(data_dir + '/' + 'Events*.npz'))
         self.label_files = sorted(glob.glob(data_dir + '/' + self.label + '*.npz'))
         self.datadir = data_dir
-        if len(self.feature_files) != len(self.label_files):
-            sys.exit("Mismatch in number of availeable Files! Events: " + str(len(self.feature_files)) + ", " + self.label + ": "  + str(len(self.label_files)))
+        #if len(self.feature_files) != len(self.label_files):
+        #    sys.exit("Mismatch in number of availeable Files! Events: " + str(len(self.feature_files)) + ", " + self.label + ": "  + str(len(self.label_files)))
 
     def __len__(self):
         return len(self.feature_files)
