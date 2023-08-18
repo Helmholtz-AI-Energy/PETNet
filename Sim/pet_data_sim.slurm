@@ -7,6 +7,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
 #SBATCH --gres=gpu:2g.10gb:1
-#SBATCH --output=Outfiles/pet_data_sim.out
+#SBATCH --output=Sim/Outfiles/pet_data_sim_SAFIRSTYLE.out
 
-python3 -u ../simulatePET.py --savedir /hkfs/work/workspace_haic/scratch/kj3268-PetNet/data --measurementTime 1000
+python3 -u simulatePET.py --savedir /hkfs/work/workspace_haic/scratch/kj3268-PetNet/data/SAFIR_Style --measurementTime 2000
