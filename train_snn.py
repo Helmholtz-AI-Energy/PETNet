@@ -12,6 +12,7 @@ from torchvision import datasets, transforms
 from chamferdist import ChamferDistance
 
 import numpy as np
+import sys
 import itertools
 import os
 import argparse
@@ -193,12 +194,52 @@ def evaluate_spikes(spk_out, targets):
         hit_accuracy += hit_accuracy_ps
         false_hits += false_hits_ps
 
-    trues_hit = trues_hit / num_trues
     false_hits = false_hits / n_samples
-    hit_accuracy = hit_accuracy / num_trues
+    if num_trues == 0:
+        trues_hit = 1
+        hit_accuracy = 1
+    else:
+        trues_hit = trues_hit / num_trues
+        hit_accuracy = hit_accuracy / num_trues
 
     return trues_hit, false_hits, hit_accuracy
 
+def calc_f1(spk_out, targets):
+    true_positives, false_positives, false_negatives, total_positives = 0.0, 0.0, 0.0, 0.0
+
+    for sample in range(spk_out.size(dim=1)):
+        sample_targets = targets[:,sample,:].nonzero(as_tuple=False)
+        prediction_hits = spk_out[:,sample,:].nonzero(as_tuple=False)
+        total_positives += len(sample_targets)
+        sample_targets_sorted = sample_targets[sample_targets[:,0].argsort(dim=0)]
+        coinc_hit = 0
+        coinc_missed = False
+        for target_hit in sample_targets_sorted:
+            Hits = [pred_hit for pred_hit in prediction_hits if target_hit[1] == pred_hit[1]]
+            if len(Hits) == 0:
+                coinc_missed = True
+            else:
+                pred_hit = Hits[0]
+                if len(Hits) != 1:
+                    for hit in Hits:
+                        if (hit[0] - taget_hit[0]) < (pred_hit[0] - target_hit[0]):
+                            pred_hit = hit
+                prediction_hits = [pred for pred in prediction_hits if not torch.equal(pred,pred_hit)]
+
+            if coinc_hit == 1:
+                if coinc_missed == False:
+                    true_positives += 1
+                else:
+                    false_negatives += 1
+
+                coinc_hit = 0
+                coinc_missed = False
+            else:
+                coinc_hit = 1
+
+        false_positives += len(prediction_hits)
+
+    return true_positives, false_positives, false_negatives, total_positives
 
 def train(hyperparameters: argparse.Namespace):
     # set fixed seeds for reproducible execution
@@ -279,6 +320,7 @@ def train(hyperparameters: argparse.Namespace):
         print(f"epoch: {epoch}")
         net.train()
         trues_hit, false_hits, hit_accuracy = 0.0, 0.0, 0.0
+        true_positives, false_positives, false_negatives = 0.0, 0.0, 0.0
         loss_result = 0
 
         # Minibatch training loop
@@ -294,6 +336,7 @@ def train(hyperparameters: argparse.Namespace):
 
             # calculate Loss
             loss_val = loss(spk_rec, targets)
+            calc_f1(spk_rec, targets)
             loss_result += loss_val.item()
 
             # Gradient calculation + weight update
@@ -319,10 +362,28 @@ def train(hyperparameters: argparse.Namespace):
                 false_hits += eval_results[1]
                 hit_accuracy += eval_results[2]
 
+                f1_results = calc_f1(test_spk, test_targets)
+                true_positives += f1_results[0]
+                false_positives += f1_results[1]
+                false_negatives += f1_results[2]
+
         n_batches = n_test_samples/hyperparameters.batch
+        if true_positives == 0:
+            print("No True Positives!")
+            print(f"False_positives: {false_positives}" )
+            print(f"False_negatives: {false_negatives}" )
+            precision = 0
+            recall = 0
+            f1_score = 0
+        else:
+            precision = true_positives/(true_positives + false_positives)
+            recall = true_positives/(true_positives + false_positives)
+            f1_score = 2.0 * (precision * recall) / (precision + recall)
+
         print(f"\t train loss: {loss_result/n_train_samples}")
         print(f"\t test loss: {test_loss/n_test_samples}")
         print(f"\t test accuracy; Trues: {trues_hit/n_batches} \t False: {false_hits/n_test_samples} \t Acc: {hit_accuracy/n_test_samples}")
+        print(f"\t Precision: {precision} \t Recall: {recall} \t F1 Score: {f1_score}")
 
         is_best = test_loss < best_loss
         best_loss = min(test_loss, best_loss)
