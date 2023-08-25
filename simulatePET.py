@@ -40,14 +40,23 @@ def position_to_crystalID(ringNumber, crystalNumber):
     return crystalID
 
 def k_furthest_neighbours(ringNumber, crystalNumber):
-    Xmin = (parameters.n_Crystals_Per_Ring - crystalNumber - parameters.Spread) % parameters.n_Crystals_Per_Ring
-    Xmax = ((parameters.n_Crystals_Per_Ring - crystalNumber + parameters.Spread) % parameters.n_Crystals_Per_Ring)
-    Ymin = max(parameters.n_Rings - ringNumber - parameters.Spread, 0)
-    Ymax = min(parameters.n_Rings - ringNumber + parameters.Spread, parameters.n_Rings - 1)
+    Xmin = (crystalNumber - parameters.Spread + (parameters.n_Crystals_Per_Ring / 2)) % parameters.n_Crystals_Per_Ring
+    Xmax = (crystalNumber + parameters.Spread + (parameters.n_Crystals_Per_Ring / 2)) % parameters.n_Crystals_Per_Ring
+    Ymin = max(parameters.n_Rings - 1 - ringNumber - parameters.Spread, 0)
+    Ymax = min(parameters.n_Rings - 1 - ringNumber + parameters.Spread, parameters.n_Rings - 1)
     geometry = np.zeros(0, dtype=np.int32)
-    for posX in range(Xmin, Xmax + 1):
-        for posY in range(Ymin, Ymax + 1):
-            geometry = np.append(geometry, position_to_crystalID(posY, posX))
+    if Xmin < Xmax:
+        for posX in range(int(Xmin), int(Xmax) + 1):
+            for posY in range(Ymin, Ymax + 1):
+                geometry = np.append(geometry, position_to_crystalID(posY, posX))
+    else:
+        for posX in range(int(Xmin), parameters.n_Crystals_Per_Ring):
+            for posY in range(Ymin, Ymax + 1):
+                geometry = np.append(geometry, position_to_crystalID(posY, posX))
+        for posX in range(0, int(Xmax) + 1):
+            for posY in range(Ymin, Ymax + 1):
+                geometry = np.append(geometry, position_to_crystalID(posY, posX))
+
 
     return geometry
 
@@ -63,7 +72,7 @@ class decay:
         positionX_1 = np.random.randint(0, parameters.n_Crystals_Per_Ring)
         positionY_1 = np.random.randint(0, parameters.n_Rings)
         self.photon_1 = photon(positionX_1, positionY_1, time)
-        positionX_2 = np.random.randint(parameters.n_Crystals_Per_Ring - positionX_1 - parameters.Spread, parameters.n_Crystals_Per_Ring - positionX_1 + parameters.Spread) % parameters.n_Crystals_Per_Ring
+        positionX_2 = np.random.randint(positionX_1 + (parameters.n_Crystals_Per_Ring / 2) - parameters.Spread, positionX_1 + (parameters.n_Crystals_Per_Ring / 2) + parameters.Spread) % parameters.n_Crystals_Per_Ring
         positionY_2 = np.random.randint(max(parameters.n_Rings - positionY_1 - parameters.Spread, 0), min(parameters.n_Rings - positionY_1 + parameters.Spread, parameters.n_Rings - 1))
         self.photon_2 = photon(positionX_2, positionY_2, time)
         self.time = time
@@ -105,7 +114,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--savedir', default='/hkfs/work/workspace_haic/scratch/kj3268-PetNet/data', help='directory to save data', type=str)
     parser.add_argument('--nsamples', default=1024000, help='total number of samples to generate', type=int)
-    parser.add_argument('--measurementTime', default=1000000, help='simulation timesteps', type=int)
+    parser.add_argument('--measurementTime', default=1000, help='simulation timesteps', type=int)
     arguments = parser.parse_args()
 
     os.chdir(arguments.savedir)
