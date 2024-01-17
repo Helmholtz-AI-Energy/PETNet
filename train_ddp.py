@@ -18,7 +18,7 @@ from models import PETNet, LSTM
 from simDataSet import SimDataSet
 
 import metrics_helper 
-import eval_helper  
+from evaluate import evaluate_spikes
 
 def set_all_seeds(seed):
     os.environ["PL_GLOBAL_SEED"] = str(seed)
@@ -37,7 +37,7 @@ def get_dataloaders_ddp(hyperparameters, num_workers=0, validation_fraction=0.1)
     
     # Define a transform
     select_label = hyperparameters.label
-    dataSet = SimDataSet(data_dir=hyperparameters.datapath, label=select_label, transform = None)
+    dataSet = SimDataSet(data_dir=hyperparameters.datapath, label=select_label)
     if hyperparameters.nsamples != -1:
         dataSet = torch.utils.data.Subset(dataSet, range(0, hyperparameters.nsamples))
 
@@ -118,13 +118,13 @@ def train(hyperparameters: argparse.Namespace):
     else:
         early_stopping = 0
         
-    if hyperparameters.model_type == "PETNet":
+    if hyperparameters.modeltype == "PETNet":
         model = PETNet(num_inputs=hyperparameters.innodes,
                   num_hidden=hyperparameters.hidden,
                   num_outputs=hyperparameters.outnodes,
                   num_steps=hyperparameters.timesteps,
                   beta=hyperparameters.constant)
-    elif hyperparameters.model_type == "LSTM":
+    elif hyperparameters.modeltype == "LSTM":
         model = LSTM(num_inputs=hyperparameters.innodes,
                       num_hidden=hyperparameters.hidden,
                       num_outputs=hyperparameters.outnodes,
@@ -195,7 +195,7 @@ def train(hyperparameters: argparse.Namespace):
                 loss_val /= world_size
 
 
-                metrics += eval_helper.evaluate_spikes(val_spk, val_targets, delay_tolerance=40)
+                metrics += evaluate_spikes(val_spk, val_targets, delay_tolerance=40)
                 
                 # Calculate Statistics
                 val_loss += loss_val.item()

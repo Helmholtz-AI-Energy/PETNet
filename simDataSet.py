@@ -10,13 +10,11 @@ import scipy
 
 class SimDataSet():
     """Simulation dataset."""
-    def __init__(self, data_dir : str, label : str, transform : list[str] = None):
+    def __init__(self, data_dir, label):
         """
         Arguments:
             data_dir (string): Directory with all data files.
-            transform (callable, optional): Currently unused.
         """
-        self.transform = transform
         self.label = label
         self.feature_files = sorted(glob.glob(data_dir + '/' + 'Events*.npz'))
         self.label_files = sorted(glob.glob(data_dir + '/' + self.label + '*.npz'))
@@ -37,20 +35,6 @@ class SimDataSet():
         features = features.to_dense()
         labels = labels.to_dense()
 
-        if self.transform != None:
-            for operation in self.transform:
-                command = operation.split()
-                if command[0] == 'Flip':
-                        features = torch.flip(features, [0])
-                        labels = torch.flip(labels, [0])
-                elif command[0] == 'RandomCrop':
-                        bounds_lower = np.random.randint(0,features.shape[1]-int(command[1])-1)
-                        features = features[:,bounds_lower:bounds_lower+int(command[1])]
-                        labels = features[:,bounds_lower:bounds_lower+int(command[1])]
-                        print(bounds_lower)
-                        print(features.shape)
-                else:
-                        print("Unknown Transform! " + operation)
 
         return features, labels
 
